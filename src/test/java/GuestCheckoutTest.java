@@ -13,7 +13,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class GuestCheckoutTest extends BasePage {
     private WebDriver driver;
-    private Browser browserGetter = new Browser();
+    private Browser browser = new Browser();
     private ProductPage productPage = new ProductPage();
     private HeaderSection header = new HeaderSection();
     private StoreAndRegion store = new StoreAndRegion();
@@ -25,7 +25,7 @@ public class GuestCheckoutTest extends BasePage {
     @BeforeClass
     public void beforeClass() {
         //initialize the Chrome browser here
-        driver = browserGetter.getChromeDriver();
+        driver = browser.getChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         //initialize page object class

@@ -28,6 +28,10 @@ public class URLS{
 
     public static String quickOrderUrl = "https://uat-ecatalog.corning.com/life-sciences/b2c/US/en/quickOrder/?clear=true";
 
+    public static String resourceLibraryUrl = "http://uat2-wcms.corning.com/worldwide/en/products/life-sciences/resource-library.html";
+    public static String certificateProductNumber = "3599";
+    public static String certificateLotNumber = "36205011";
+
     //This must be changed according to the project's location
     public static String localArtifactGuest = "D:\\Java Automation Projects\\smoke_tests_in_java\\src\\test\\screenshots\\orderArtifactsGuest.txt";
     public static String localArtifactB2C = "D:\\Java Automation Projects\\smoke_tests_in_java\\src\\test\\screenshots\\orderArtifactsB2C.txt";
