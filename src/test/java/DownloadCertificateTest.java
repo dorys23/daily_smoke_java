@@ -1,6 +1,5 @@
 import browser.Browser;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,14 +12,14 @@ import java.util.concurrent.TimeUnit;
 
 public class DownloadCertificateTest extends BasePage{
     private WebDriver driver;
-    private Browser browser = new Browser();
-    private ResourceLibraryPage resourceLibraryPage = new ResourceLibraryPage();
+    private ResourceLibraryPage resourceLibraryPage;
 
     @BeforeClass
     public void beforeClass(){
+        Browser browser = new Browser();
         driver = browser.getChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        resourceLibraryPage = PageFactory.initElements(driver, ResourceLibraryPage.class);
+        resourceLibraryPage = new ResourceLibraryPage(driver);
     }
 
     @AfterClass

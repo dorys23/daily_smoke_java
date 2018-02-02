@@ -1,6 +1,5 @@
 import browser.Browser;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -14,16 +13,16 @@ import java.util.concurrent.TimeUnit;
 
 public class FilteringOnFamilyPageTest extends BasePage{
     private WebDriver driver;
-    private Browser browser = new Browser();
-    private StoreAndRegion storeAndRegion = new StoreAndRegion();
-    private ProductFamilyPage productFamilyPage = new ProductFamilyPage();
+    private StoreAndRegion storeAndRegion;
+    private ProductFamilyPage productFamilyPage;
 
     @BeforeClass
     public void beforeClass(){
+        Browser browser = new Browser();
         driver = browser.getChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        storeAndRegion = PageFactory.initElements(driver, StoreAndRegion.class);
-        productFamilyPage = PageFactory.initElements(driver, ProductFamilyPage.class);
+        storeAndRegion = new StoreAndRegion(driver);
+        productFamilyPage = new ProductFamilyPage(driver);
     }
 
     @AfterClass
@@ -38,7 +37,7 @@ public class FilteringOnFamilyPageTest extends BasePage{
         takeScreenshot(driver, "37_on_family_product_page");
 
         storeAndRegion.setSelectBusinessStore(driver);
-        storeAndRegion.setUnitedsStatesLinkB2B(driver);
+        storeAndRegion.setUnitedStatesLinkB2B(driver);
 
         productFamilyPage.selectSpecifications();
         takeScreenshot(driver, "38_specifications_selected");

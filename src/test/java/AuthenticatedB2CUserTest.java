@@ -1,6 +1,5 @@
 import browser.Browser;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,24 +10,22 @@ import java.util.concurrent.TimeUnit;
 
 public class AuthenticatedB2CUserTest extends BasePage{
     private WebDriver driver;
-    private Browser browser = new Browser();
-    private B2CLoginPage b2CLoginPage = new B2CLoginPage();
-    private StoreAndRegion storeAndRegion = new StoreAndRegion();
-    private QuickOrderPage quickOrderPage = new QuickOrderPage();
-    private ProductPage productPage = new ProductPage();
-    private CheckoutPage checkoutPage = new CheckoutPage();
-    private OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage();
+    private B2CLoginPage b2CLoginPage;
+    private StoreAndRegion storeAndRegion;
+    private QuickOrderPage quickOrderPage;
+    private ProductPage productPage;
+    private CheckoutPage checkoutPage;
 
     @BeforeClass
     public void beforeClass(){
+        Browser browser = new Browser();
         driver = browser.getChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        b2CLoginPage = PageFactory.initElements(driver, B2CLoginPage.class);
-        storeAndRegion = PageFactory.initElements(driver, StoreAndRegion.class);
-        quickOrderPage = PageFactory.initElements(driver, QuickOrderPage.class);
-        productPage = PageFactory.initElements(driver, ProductPage.class);
-        checkoutPage = PageFactory.initElements(driver, CheckoutPage.class);
-        orderConfirmationPage = PageFactory.initElements(driver, OrderConfirmationPage.class);
+        b2CLoginPage = new B2CLoginPage(driver);
+        storeAndRegion = new StoreAndRegion(driver);
+        quickOrderPage = new QuickOrderPage(driver);
+        productPage = new ProductPage(driver);
+        checkoutPage = new CheckoutPage(driver);
     }
 
     @AfterClass
@@ -44,7 +41,7 @@ public class AuthenticatedB2CUserTest extends BasePage{
 
         storeAndRegion.setSelectConsumerStore(driver);
         takeScreenshot(driver, "18_selecting_consumer_store");
-        storeAndRegion.setUnitedsStatesLinkB2C(driver);
+        storeAndRegion.setUnitedStatesLinkB2C(driver);
         takeScreenshot(driver, "19_selecting_usa_region.png");
         Thread.sleep(5000);
         b2CLoginPage.b2CLogin(URLS.b2cUsername, URLS.b2cPassword);
@@ -68,10 +65,7 @@ public class AuthenticatedB2CUserTest extends BasePage{
         checkoutPage.addCardDetails("Visa", "4111111111111111", "12", "2019", "116");
         takeScreenshot(driver, "25_provided_card_details");
         System.out.println("\n B2C user successfully got through the checkout flow");
-
-        System.out.println("\n" + orderConfirmationPage.getOrderID());
-        takeScreenshot(driver, "26_on_order_confirmation_page");
         System.out.println("\n B2C user placed the order and successfully transitioned to the order confirmation page");
-
+        takeScreenshot(driver, "26_on_order_confirmation_page");
     }
 }

@@ -1,8 +1,10 @@
 package pageobjects;
 
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.How.CSS;
 import static org.openqa.selenium.support.How.XPATH;
@@ -21,28 +23,19 @@ public class QuickOrderPage extends BasePage{
     @FindBy(how = CSS, using = ".btn.btn-primary.add-to-cart-button")
     private WebElement checkoutButton;
 
-
-    private WebElement getQuickOrderButton() { return quickOrderButton; }
-
-    private WebElement getProduct1Field() { return product1Field; }
-
-    private WebElement getProduct2Field() { return product2Field; }
-
-    private WebElement getProduct3Field() { return product3Field; }
-
-    private WebElement getAddToCartButton() { return addToCartButton; }
-
-    private WebElement getCheckoutButton() { return checkoutButton; }
+    public QuickOrderPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
 
     public void placeAnOrderInTheQuickOrderPage(String product1, String product2, String product3) throws InterruptedException {
-        getProduct1Field().sendKeys(product1);
+        product1Field.sendKeys(product1);
         Thread.sleep(5000);
-        getProduct2Field().sendKeys(product2);
+        product2Field.sendKeys(product2);
         Thread.sleep(5000);
-        getProduct3Field().sendKeys(product3);
-        getProduct3Field().sendKeys(Keys.ENTER);
+        product3Field.sendKeys(product3);
+        product3Field.sendKeys(Keys.ENTER);
         Thread.sleep(5000);
-        getAddToCartButton().click();
-        getCheckoutButton().click();
+        addToCartButton.click();
+        checkoutButton.click();
     }
 }

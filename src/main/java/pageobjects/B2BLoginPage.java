@@ -1,7 +1,9 @@
 package pageobjects;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.How.CSS;
 
@@ -14,15 +16,13 @@ public class B2BLoginPage {
     private WebElement loginButton;
 
 
-    private WebElement getUsernameInputField() { return usernameInputField; }
+    public B2BLoginPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
 
-    private WebElement getPasswordInputField() { return passwordInputField; }
-
-    private WebElement getLoginButton() { return loginButton; }
-
-    public void b2bLogin(String username, String password){
-        getUsernameInputField().sendKeys(username);
-        getPasswordInputField().sendKeys(password);
-        getLoginButton().click();
+    public void b2bLogin(String username, String password) {
+        usernameInputField.sendKeys(username);
+        passwordInputField.sendKeys(password);
+        loginButton.click();
     }
 }

@@ -1,7 +1,9 @@
 package pageobjects;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.How.CSS;
 import static org.openqa.selenium.support.How.ID;
@@ -18,27 +20,23 @@ public class ProductPage {
     @FindBy(how = CSS, using = "div.col-sm-12.col-md-6.cart-actions--print.cart__actions > button.btn.btn-primary.btn-block.btn--continue-checkout.js-continue-checkout-button")
     private WebElement checkoutInCartButton;
 
-    public String getProductID() { return productID.getText(); }
-
-    private WebElement getAddToCartButton() { return addToCartButton; }
-
-    private WebElement getContinueShoppingButton() { return continueShoppingButton; }
-
-    private WebElement getCheckOutButton() { return checkOutButton; }
-
-    private WebElement getCheckoutInCartButton() { return checkoutInCartButton; }
+    public ProductPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
 
     public void clickOnAddToCartButton(){
-        getAddToCartButton().click(); }
+        addToCartButton.click(); }
 
     public void clickOnContinueShoppingButton(){
-        getContinueShoppingButton().click(); }
+        continueShoppingButton.click(); }
 
     public void clickOnCheckoutButton(){
-        getCheckOutButton().click(); }
+        checkOutButton.click(); }
 
     public void clickOnCheckoutInCartButton(){
-        getCheckoutInCartButton().click(); }
+        checkoutInCartButton.click(); }
 
-
+    public String getProductId(){
+        return productID.getText();
+    }
 }

@@ -1,8 +1,9 @@
 package pageobjects;
 
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.How.CSS;
 import static org.openqa.selenium.support.How.ID;
@@ -59,87 +60,57 @@ public class CheckoutPage extends BasePage {
     @FindBy(how = CSS, using = "button[id='placeOrder']")
     private WebElement placeOrderButton;
 
-    private WebElement getPaymentTypeSubmitButton() { return paymentTypeSubmitButton; }
-
-    private WebElement getAddNewAddressButton() { return addNewAddressButton; }
-
-    private WebElement getFirstNameInput() { return firstNameInput; }
-
-    private WebElement getLastNameInput() { return lastNameInput; }
-
-    private WebElement getOrganizationInput() { return organizationInput; }
-
-    private WebElement getAddressLine1Input() { return addressLine1Input; }
-
-    private WebElement getTownOrCityInput() { return townOrCityInput; }
-
-    private WebElement getZipPostalCodeInput() { return zipPostalCodeInput; }
-
-    private WebElement getAddAddressButton() { return addAddressButton; }
-
-    private WebElement getShippingDeliveryButton() { return shippingDeliveryButton; }
-
-    private WebElement getPurchaseOrderInput() { return purchaseOrderInput; }
-
-    private WebElement getDeliveryMethodButton() { return deliveryMethodButton; }
-
-    private WebElement getNextPaymentButton() { return nextPaymentButton; }
-
-    private WebElement getCardNumberInput() { return cardNumberInput; }
-
-    private WebElement getSecurityCodeInput() { return securityCodeInput; }
-
-    private WebElement getTermsCheckBox() { return termsCheckBox; }
-
-    private WebElement getPlaceOrderButton() { return placeOrderButton; }
+    public CheckoutPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
 
     public void addNewAddress(String country, String title, String firstName, String lastName, String organization, String address, String town, String state, String postalCode) throws InterruptedException {
 //        Payment Type section
-        getPaymentTypeSubmitButton().click();
+        paymentTypeSubmitButton.click();
 //        Shipping address section
-        getAddNewAddressButton().click();
+        addNewAddressButton.click();
 //        Add New Address section
         Thread.sleep(60);
         selectFromDropdownMenu(countryDropdownMenu, country);
         selectFromDropdownMenu(titleDropdownMenu, title);
-        getFirstNameInput().sendKeys(firstName);
-        getLastNameInput().sendKeys(lastName);
-        getOrganizationInput().sendKeys(organization);
-        getAddressLine1Input().sendKeys(address);
-        getTownOrCityInput().sendKeys(town);
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        organizationInput.sendKeys(organization);
+        addressLine1Input.sendKeys(address);
+        townOrCityInput.sendKeys(town);
         selectFromDropdownMenu(stateDropdownMenu, state);
-        getZipPostalCodeInput().sendKeys(postalCode);
-        getAddAddressButton().click();
-        getShippingDeliveryButton().click();
-        getDeliveryMethodButton().click();
+        zipPostalCodeInput.sendKeys(postalCode);
+        addAddressButton.click();
+        shippingDeliveryButton.click();
+        deliveryMethodButton.click();
         Thread.sleep(5000);
-        getNextPaymentButton().click();
+        nextPaymentButton.click();
     }
 
     public void addCardDetails(String cardType, String cardNumber, String expirationMonth, String expirationYear, String securityCode) {
         selectFromDropdownMenu(cardTypeDropdown, cardType);
-        getCardNumberInput().sendKeys(cardNumber);
+        cardNumberInput.sendKeys(cardNumber);
         selectFromDropdownMenu(cardExpirationMonthDropdown, expirationMonth);
         selectFromDropdownMenu(cardExpirationYearDropdown, expirationYear);
-        getSecurityCodeInput().sendKeys(securityCode);
-        getTermsCheckBox().click();
-        getPlaceOrderButton().click();
+        securityCodeInput.sendKeys(securityCode);
+        termsCheckBox.click();
+        placeOrderButton.click();
     }
 
     public void b2cCheckoutFlow() throws InterruptedException {
-        getPaymentTypeSubmitButton().click();
-        getShippingDeliveryButton().click();
-        getDeliveryMethodButton().click();
+        paymentTypeSubmitButton.click();
+        shippingDeliveryButton.click();
+        deliveryMethodButton.click();
         Thread.sleep(5000);
-        getNextPaymentButton().click();
+        nextPaymentButton.click();
     }
 
     public void b2bCheckoutFlow(String paymentNumber) throws InterruptedException{
-        getPurchaseOrderInput().sendKeys(paymentNumber);
-        getPaymentTypeSubmitButton().click();
-        getDeliveryMethodButton().click();
+        purchaseOrderInput.sendKeys(paymentNumber);
+        paymentTypeSubmitButton.click();
+        deliveryMethodButton.click();
         Thread.sleep(5000);
-        getTermsCheckBox().click();
-        getPlaceOrderButton().click();
+        termsCheckBox.click();
+        placeOrderButton.click();
     }
 }
